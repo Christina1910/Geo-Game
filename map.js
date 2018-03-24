@@ -40,16 +40,12 @@ function getDistanceToString(punkt1, punkt2) {
 mymap.locate({setView: true, minZoom: 18, maxZoom: 18, watch: true}); /*Zoom level bestimmt, 18 max*/
 
 function onLocationFound(e) {
+    if(marker) {
+        map.removeControl(marker);
+    }
+    
     var radius = e.accuracy / 2; 
-   /*marker = new L.marker(e.latlng, {draggable:true})
-    mymap.addLayer(marker)
-    mymap.removeLayer(marker)
-
-    L.marker(e.latlng).addTo(mymap)
-        .bindPopup("You are within " + radius + " meters from this point").openPopup();
-
-    L.circle(e.latlng, radius).addTo(mymap);*/
-     var location = e.latlng
+    var location = e.latlng;
     L.marker(location).addTo(mymap);
     L.circle(location, radius).addTo(mymap);
 }
@@ -61,3 +57,4 @@ function onLocationError(e) {
 }
 
 mymap.on('locationerror', onLocationError);
+
